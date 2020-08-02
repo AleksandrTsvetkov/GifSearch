@@ -12,7 +12,10 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        let a = NetworkService()
+        a.request(byText: "cats") { (data, error) in
+            
+        }
     }
 
 
