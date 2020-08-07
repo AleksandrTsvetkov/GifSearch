@@ -40,8 +40,7 @@ class NetworkService {
         components.scheme = "https"
         components.host = host
         components.path = path
-        components.queryItems = [URLQueryItem(name: "q", value: searchText), URLQueryItem(name: "api_key", value: apiKey)]
-        print(components.url!)
+        components.queryItems = [URLQueryItem(name: "q", value: searchText), URLQueryItem(name: "limit", value: "1"), URLQueryItem(name: "api_key", value: apiKey)]
         
         return components.url!
     }
