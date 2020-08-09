@@ -6,18 +6,18 @@
 //  Copyright © 2020 Александр Цветков. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 struct Gif {
     
     let author: String
     let name: String
-    let image: UIImage
-    var savedTime: Date?
+    let imageData: Data
+    var savedDate: Date?
     
-    init(author: String, name: String, image: UIImage) {
+    init(author: String, name: String, imageData: Data) {
         self.author = author
         self.name = name
-        self.image = image
+        self.imageData = imageData
     }
 }

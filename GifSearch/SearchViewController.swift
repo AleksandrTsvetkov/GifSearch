@@ -12,11 +12,11 @@ class SearchViewController: UIViewController {
     
     //MARK: PROPERTIES
     private var networkService: NetworkService!
-    private var animatedView: UIImageView!
     private var searchBar: UISearchBar!
     private var tableView: UITableView!
     private var timer: Timer?
-    private var gifs: Array<UIImage> = []
+    private var gifs: Array<Gif> = []
+    private let activityIndicator = UIActivityIndicatorView(style: .large)
     
     //MARK: VIEW LIFECYCLE
     override func viewDidLoad() {
@@ -24,7 +24,7 @@ class SearchViewController: UIViewController {
         if networkService == nil { networkService = NetworkService() }
         setupSearchBar()
         setupTableView()
-        setupAnimatedView()
+        setupActivityIndicator()
     }
     
     //MARK: INITIAL SETUP
@@ -43,7 +43,7 @@ class SearchViewController: UIViewController {
         tableView = UITableView()
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        tableView.register(GifTableViewCell.self, forCellReuseIdentifier: "Cell")
         tableView.backgroundColor = .white
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -56,16 +56,17 @@ class SearchViewController: UIViewController {
         tableView.isHidden = true
     }
     
-    private func setupAnimatedView() {
-        animatedView = UIImageView()
-        view.addSubview(animatedView)
-        animatedView.translatesAutoresizingMaskIntoConstraints = false
+    private func setupActivityIndicator() {
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.color = .black
+        view.addSubview(activityIndicator)
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            animatedView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
-            animatedView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor),
-            animatedView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
-            animatedView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor)
+            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: tableView.centerYAnchor),
+            activityIndicator.heightAnchor.constraint(equalToConstant: 500),
+            activityIndicator.widthAnchor.constraint(equalToConstant: 500)
         ])
     }
 }
@@ -73,7 +74,7 @@ class SearchViewController: UIViewController {
 //MARK: UICollectionViewProtocols
 extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        10
+        gifs.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -81,10 +82,12 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        if gifs.count >= indexPath.row + 1 {
-            cell.backgroundView = UIImageView(image: gifs[indexPath.row])
-        }
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! GifTableViewCell
+        let gif = gifs[indexPath.row]
+        let gifImage = UIImage.gifImageWithData(gif.imageData)
+        cell.gifImageView.image = gifImage
+        cell.nameLabel.text = gif.name
+        cell.authorLabel.text = gif.author
         return cell
     }
 }
@@ -94,8 +97,11 @@ extension SearchViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         guard searchText != "" else { return }
         timer?.invalidate()
-        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false, block: { _ in
-            self.networkService.request(byText: searchText) { (data, error) in
+        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false, block: { [weak self] _ in
+            self?.activityIndicator.startAnimating()
+            self?.activityIndicator.isHidden = false
+            self?.tableView.isHidden = true
+            self?.networkService.request(byText: searchText) { (data, error) in
                 if let error = error {
                     print("\(error.localizedDescription) in \(#function)")
                     return
@@ -109,14 +115,14 @@ extension SearchViewController: UISearchBarDelegate {
                 do {
                     let response = try jsonDecoder.decode(GiphyResponseModel.self, from: data)
                     guard !response.data.isEmpty else { return }
-                    self.gifs = []
+                    self?.gifs = []
                     for gifInfo in response.data {
-                        let gifUrl = gifInfo.images.original.url
-                        guard let gif = UIImage.gifImageWithURL(gifUrl) else { return }
-                        self.gifs.append(gif)
+                        let gif = gifInfo.convert()
+                        if let gif = gif { self?.gifs.append(gif) }
                     }
-                    self.tableView.reloadData()
-                    self.tableView.isHidden = false
+                    self?.tableView.reloadData()
+                    self?.activityIndicator.stopAnimating()
+                    self?.tableView.isHidden = false
                 } catch {
                     print("Failed to decode data in \(#function)\n\(error)")
                 }// end catch
