@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1F03B56B24D6D09C0076F846 /* UIImage + GIF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F03B56A24D6D09C0076F846 /* UIImage + GIF.swift */; };
+		1F13BA4A24E02F1900438F2D /* GifModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F13BA4924E02F1900438F2D /* GifModel.swift */; };
 		1FAAF03F24C2443D00C934D1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FAAF03E24C2443D00C934D1 /* AppDelegate.swift */; };
 		1FAAF04124C2443D00C934D1 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FAAF04024C2443D00C934D1 /* SearchViewController.swift */; };
 		1FAAF04324C2443F00C934D1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1FAAF04224C2443F00C934D1 /* Assets.xcassets */; };
@@ -18,6 +19,7 @@
 
 /* Begin PBXFileReference section */
 		1F03B56A24D6D09C0076F846 /* UIImage + GIF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage + GIF.swift"; sourceTree = "<group>"; };
+		1F13BA4924E02F1900438F2D /* GifModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifModel.swift; sourceTree = "<group>"; };
 		1FAAF03B24C2443D00C934D1 /* GifSearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GifSearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FAAF03E24C2443D00C934D1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1FAAF04024C2443D00C934D1 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
@@ -99,6 +101,7 @@
 			isa = PBXGroup;
 			children = (
 				1FFC9CCE24D873B60079B9EC /* GiphyResponseModel.swift */,
+				1F13BA4924E02F1900438F2D /* GifModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -182,6 +185,7 @@
 			files = (
 				1F03B56B24D6D09C0076F846 /* UIImage + GIF.swift in Sources */,
 				1FFC9CCF24D873B60079B9EC /* GiphyResponseModel.swift in Sources */,
+				1F13BA4A24E02F1900438F2D /* GifModel.swift in Sources */,
 				1FDA953F24D6C0F800ACD5AC /* NetworkService.swift in Sources */,
 				1FAAF04124C2443D00C934D1 /* SearchViewController.swift in Sources */,
 				1FAAF03F24C2443D00C934D1 /* AppDelegate.swift in Sources */,

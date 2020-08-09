@@ -16,6 +16,8 @@ struct GiphyResponseModel: Decodable {
 
 struct DataModel: Decodable {
     let images: ImagesModel
+    let username: String
+    let title: String
 }
 
 struct PaginationModel: Decodable {
@@ -36,4 +38,6 @@ struct ImagesModel: Decodable {
 
 struct OriginalImageModel: Decodable {
     let url: String
+    let height: String
+    let width: String
 }

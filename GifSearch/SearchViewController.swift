@@ -14,13 +14,16 @@ class SearchViewController: UIViewController {
     private var networkService: NetworkService!
     private var animatedView: UIImageView!
     private var searchBar: UISearchBar!
+    private var tableView: UITableView!
     private var timer: Timer?
+    private var gifs: Array<UIImage> = []
     
     //MARK: VIEW LIFECYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
-        networkService = NetworkService()
+        if networkService == nil { networkService = NetworkService() }
         setupSearchBar()
+        setupTableView()
         setupAnimatedView()
     }
     
@@ -36,6 +39,23 @@ class SearchViewController: UIViewController {
         ])
     }
     
+    private func setupTableView() {
+        tableView = UITableView()
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        tableView.backgroundColor = .white
+        view.addSubview(tableView)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor)
+        ])
+        tableView.isHidden = true
+    }
+    
     private func setupAnimatedView() {
         animatedView = UIImageView()
         view.addSubview(animatedView)
@@ -47,6 +67,25 @@ class SearchViewController: UIViewController {
             animatedView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
             animatedView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor)
         ])
+    }
+}
+
+//MARK: UICollectionViewProtocols
+extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        10
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        150
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        if gifs.count >= indexPath.row + 1 {
+            cell.backgroundView = UIImageView(image: gifs[indexPath.row])
+        }
+        return cell
     }
 }
 
@@ -67,11 +106,17 @@ extension SearchViewController: UISearchBarDelegate {
                 }
                 let jsonDecoder = JSONDecoder()
                 jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
-                
                 do {
                     let response = try jsonDecoder.decode(GiphyResponseModel.self, from: data)
-                    let gifUrl = response.data[0].images.original.url
-                    self.animatedView.image = UIImage.gifImageWithURL(gifUrl)
+                    guard !response.data.isEmpty else { return }
+                    self.gifs = []
+                    for gifInfo in response.data {
+                        let gifUrl = gifInfo.images.original.url
+                        guard let gif = UIImage.gifImageWithURL(gifUrl) else { return }
+                        self.gifs.append(gif)
+                    }
+                    self.tableView.reloadData()
+                    self.tableView.isHidden = false
                 } catch {
                     print("Failed to decode data in \(#function)\n\(error)")
                 }// end catch
