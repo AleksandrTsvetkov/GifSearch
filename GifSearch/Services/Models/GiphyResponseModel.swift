@@ -6,7 +6,7 @@
 //  Copyright © 2020 Александр Цветков. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 struct GiphyResponseModel: Decodable {
     let data: Array<DataModel>
@@ -21,11 +21,16 @@ struct DataModel: Decodable {
     func convert() -> Gif? {
         do {
             guard
-                let url = URL(string: images.original.url)
+                let url = URL(string: images.original.url),
+                let originalWidthInt = Int(images.original.width),
+                let originalHeightInt = Int(images.original.height)
                 else { return nil }
-                let data = try Data(contentsOf: url)
-            
-            return Gif(author: title, name: title, imageData: data)
+            let data = try Data(contentsOf: url)
+            let originalWidth = CGFloat(originalWidthInt)
+            let originalHeight = CGFloat(originalHeightInt)
+            let aspectRatio = originalWidth / originalHeight
+            let newWidth = 150 * aspectRatio
+            return Gif(title: title, imageData: data, width: newWidth)
         } catch {
             print("Error in \(#function)\n\(error)")
         }

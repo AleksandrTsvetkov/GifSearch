@@ -23,16 +23,13 @@ extension TableViewManager: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        150
+        200
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! GifTableViewCell
         let gif = viewController.gifs[indexPath.row]
-        let gifImage = UIImage.gifImageWithData(gif.imageData)
-        cell.gifImageView.image = gifImage
-        cell.nameLabel.text = gif.name
-        cell.authorLabel.text = gif.author
+        cell.configure(with: gif)
         return cell
     }
 }

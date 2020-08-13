@@ -12,7 +12,7 @@ class GifTableViewCell: UITableViewCell {
     
     //MARK: UI ELEMENTS
     let gifImageView = UIImageView()
-    let nameLabel: UILabel = {
+    let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 18, weight: .medium)
@@ -20,15 +20,7 @@ class GifTableViewCell: UITableViewCell {
         label.textAlignment = .left
         return label
     }()
-    
-    let authorLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 16, weight: .medium)
-        label.numberOfLines = 1
-        label.textAlignment = .left
-        return label
-    }()
+    private var gifImageViewWidth: CGFloat = 0
     
     let savedDateLabel: UILabel = {
         let label = UILabel()
@@ -44,14 +36,17 @@ class GifTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         addSubview(gifImageView)
         
+        gifImageView.contentMode = .scaleAspectFit
         gifImageView.translatesAutoresizingMaskIntoConstraints = false
-        let stackView = UIStackView(arrangedSubviews: [nameLabel, authorLabel, savedDateLabel], axis: .vertical, spacing: 0)
+        
+        let stackView = UIStackView(arrangedSubviews: [titleLabel, savedDateLabel], axis: .vertical, spacing: 0)
         addSubview(stackView)
         stackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: self.topAnchor),
             stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            stackView.leadingAnchor.constraint(equalTo: gifImageView.trailingAnchor),
             
             gifImageView.topAnchor.constraint(equalTo: self.topAnchor),
             gifImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
@@ -64,8 +59,7 @@ class GifTableViewCell: UITableViewCell {
     }
     
     override func prepareForReuse() {
-        nameLabel.text = ""
-        authorLabel.text = ""
+        titleLabel.text = ""
         savedDateLabel.text = ""
         savedDateLabel.isHidden = true
         gifImageView.image = nil
@@ -73,12 +67,13 @@ class GifTableViewCell: UITableViewCell {
     
     //MARK: Initial setup
     func configure(with gifModel: Gif) {
-        nameLabel.text = gifModel.name
-        authorLabel.text = gifModel.author
+        titleLabel.text = gifModel.title
         if let date = gifModel.savedDate {
             savedDateLabel.text = "\(date)"
         }
-        gifImageView.image = UIImage.gifImageWithData(gifModel.imageData)
+        gifImageView.image = UIImage.gif(data: gifModel.imageData)
+        //gifImageView.image = UIImage(data: gifModel.imageData)
+        //gifImageView.widthAnchor.constraint(equalToConstant: gifModel.width).isActive = true
     }
     
 }
