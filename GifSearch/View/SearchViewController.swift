@@ -13,10 +13,9 @@ class SearchViewController: UIViewController {
     //MARK: PROPERTIES
     var gifs: Array<Gif> = []
     private var searchBar: UISearchBar!
-    private var tableView: UITableView!
+    var tableView: UITableView!
     private var timer: Timer?
     private let activityIndicator = UIActivityIndicatorView(style: .large)
-    private var networkService: NetworkService!
     private var tableViewManager: TableViewManager!
     private var interactor: SearchInteractor!
     private var presenter: SearchPresenter!
@@ -24,6 +23,7 @@ class SearchViewController: UIViewController {
     //MARK: VIEW LIFECYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupSubModules()
         setupSearchBar()
         setupTableView()
         setupActivityIndicator()
@@ -31,11 +31,11 @@ class SearchViewController: UIViewController {
     
     //MARK: INITIAL SETUP
     private func setupSubModules() {
-        if networkService == nil { networkService = NetworkService() }
         if tableViewManager == nil { tableViewManager = TableViewManager(for: self) }
         if presenter == nil { presenter = SearchPresenter(for: self) }
         if interactor == nil { interactor = SearchInteractor() }
         interactor.presenter = presenter
+        interactor.networkService = NetworkService()
     }
     
     private func setupSearchBar() {
@@ -90,32 +90,21 @@ extension SearchViewController: UISearchBarDelegate {
             self?.activityIndicator.startAnimating()
             self?.activityIndicator.isHidden = false
             self?.tableView.isHidden = true
-            self?.networkService.request(byText: searchText) { (data, error) in
-                if let error = error {
-                    print("\(error.localizedDescription) in \(#function)")
-                    return
-                }
-                guard let data = data else {
-                    print("Missing data in \(#function)")
-                    return
-                }
-                let jsonDecoder = JSONDecoder()
-                jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
-                do {
-                    let response = try jsonDecoder.decode(GiphyResponseModel.self, from: data)
-                    guard !response.data.isEmpty else { return }
-                    self?.gifs = []
-                    for gifInfo in response.data {
-                        let gif = gifInfo.convert()
-                        if let gif = gif { self?.gifs.append(gif) }
-                    }
+            self?.interactor.makeRequest(ofType: .search(value: searchText), completion: { result in
+                switch result {
+                case .success(let gifs):
+                    self?.gifs = gifs
                     self?.tableView.reloadData()
                     self?.activityIndicator.stopAnimating()
                     self?.tableView.isHidden = false
-                } catch {
-                    print("Failed to decode data in \(#function)\n\(error)")
-                }// end catch
-            }// end request
+                case .failure(let error):
+                    self?.activityIndicator.stopAnimating()
+                    let ac = UIAlertController(title: "Error!", message: "\(error)", preferredStyle: .alert)
+                    let ok = UIAlertAction(title: "OK", style: .default)
+                    ac.addAction(ok)
+                    self?.present(ac, animated: true)
+                }
+            })
         })
     }// end searchBar(_:textDidChange:)
 }

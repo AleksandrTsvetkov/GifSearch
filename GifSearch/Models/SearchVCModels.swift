@@ -13,21 +13,16 @@ enum SearchVCModels {
     enum Model {
         struct Request {
             enum RequestType {
-                
+                case search(value: String)
             } // RequestType
         } // Request
         
         struct Response {
             enum ResponseType {
-                
+                case success(result: Array<Gif>)
+                case failure(error: Error)
             } // ResponseType
         } // Response
-        
-        struct ViewModel {
-            enum ViewModelData {
-                
-            } // ViewModelData
-        } // ViewModel
         
     } // Model
 } // SearchVCModels

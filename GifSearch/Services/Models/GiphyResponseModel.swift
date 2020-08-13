@@ -24,6 +24,7 @@ struct DataModel: Decodable {
                 let url = URL(string: images.original.url)
                 else { return nil }
                 let data = try Data(contentsOf: url)
+            
             return Gif(author: title, name: title, imageData: data)
         } catch {
             print("Error in \(#function)\n\(error)")

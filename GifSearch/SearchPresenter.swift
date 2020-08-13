@@ -15,4 +15,13 @@ class SearchPresenter {
     init(for viewController: SearchViewController) {
         self.viewController = viewController
     }
+    
+    func getResponse(ofType type: SearchVCModels.Model.Response.ResponseType, completion: @escaping (Result<[Gif], Error>) -> Void) {
+        switch type {
+        case .success(let result):
+            completion(.success(result))
+        case .failure(let error):
+            completion(.failure(error))
+        }
+    }
 }
