@@ -11,23 +11,33 @@ import UIKit
 class SearchViewController: UIViewController {
     
     //MARK: PROPERTIES
-    private var networkService: NetworkService!
+    var gifs: Array<Gif> = []
     private var searchBar: UISearchBar!
     private var tableView: UITableView!
     private var timer: Timer?
-    private var gifs: Array<Gif> = []
     private let activityIndicator = UIActivityIndicatorView(style: .large)
+    private var networkService: NetworkService!
+    private var tableViewManager: TableViewManager!
+    private var interactor: SearchInteractor!
+    private var presenter: SearchPresenter!
     
     //MARK: VIEW LIFECYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
-        if networkService == nil { networkService = NetworkService() }
         setupSearchBar()
         setupTableView()
         setupActivityIndicator()
     }
     
     //MARK: INITIAL SETUP
+    private func setupSubModules() {
+        if networkService == nil { networkService = NetworkService() }
+        if tableViewManager == nil { tableViewManager = TableViewManager(for: self) }
+        if presenter == nil { presenter = SearchPresenter(for: self) }
+        if interactor == nil { interactor = SearchInteractor() }
+        interactor.presenter = presenter
+    }
+    
     private func setupSearchBar() {
         searchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: 0, height: 60))
         view.addSubview(searchBar)
@@ -41,8 +51,8 @@ class SearchViewController: UIViewController {
     
     private func setupTableView() {
         tableView = UITableView()
-        tableView.delegate = self
-        tableView.dataSource = self
+        tableView.delegate = tableViewManager
+        tableView.dataSource = tableViewManager
         tableView.register(GifTableViewCell.self, forCellReuseIdentifier: "Cell")
         tableView.backgroundColor = .white
         view.addSubview(tableView)
@@ -68,27 +78,6 @@ class SearchViewController: UIViewController {
             activityIndicator.heightAnchor.constraint(equalToConstant: 500),
             activityIndicator.widthAnchor.constraint(equalToConstant: 500)
         ])
-    }
-}
-
-//MARK: UICollectionViewProtocols
-extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        gifs.count
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        150
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! GifTableViewCell
-        let gif = gifs[indexPath.row]
-        let gifImage = UIImage.gifImageWithData(gif.imageData)
-        cell.gifImageView.image = gifImage
-        cell.nameLabel.text = gif.name
-        cell.authorLabel.text = gif.author
-        return cell
     }
 }
 
