@@ -11,6 +11,8 @@
 		1F13BA4A24E02F1900438F2D /* GifModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F13BA4924E02F1900438F2D /* GifModel.swift */; };
 		1F13BA4C24E0432E00438F2D /* GifTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F13BA4B24E0432E00438F2D /* GifTableViewCell.swift */; };
 		1F13BA4E24E058D400438F2D /* StackView + Initializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F13BA4D24E058D400438F2D /* StackView + Initializer.swift */; };
+		1F19D3F824E6A4A6002751FB /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F19D3F724E6A4A6002751FB /* TabBar.swift */; };
+		1F19D3FA24E6C00E002751FB /* UIColor + HexValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F19D3F924E6C00E002751FB /* UIColor + HexValue.swift */; };
 		1F6E022424E5278600C90962 /* TableViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6E022324E5278600C90962 /* TableViewManager.swift */; };
 		1F6E022724E5292200C90962 /* SearchVCModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6E022624E5292200C90962 /* SearchVCModels.swift */; };
 		1F6E022924E52CBB00C90962 /* SearchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6E022824E52CBB00C90962 /* SearchInteractor.swift */; };
@@ -29,6 +31,8 @@
 		1F13BA4924E02F1900438F2D /* GifModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifModel.swift; sourceTree = "<group>"; };
 		1F13BA4B24E0432E00438F2D /* GifTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifTableViewCell.swift; sourceTree = "<group>"; };
 		1F13BA4D24E058D400438F2D /* StackView + Initializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "StackView + Initializer.swift"; sourceTree = "<group>"; };
+		1F19D3F724E6A4A6002751FB /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
+		1F19D3F924E6C00E002751FB /* UIColor + HexValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor + HexValue.swift"; sourceTree = "<group>"; };
 		1F6E022324E5278600C90962 /* TableViewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewManager.swift; sourceTree = "<group>"; };
 		1F6E022624E5292200C90962 /* SearchVCModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVCModels.swift; sourceTree = "<group>"; };
 		1F6E022824E52CBB00C90962 /* SearchInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchInteractor.swift; sourceTree = "<group>"; };
@@ -58,6 +62,7 @@
 		1F3BD40E24D6DA3F0003FA05 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				1F19D3F924E6C00E002751FB /* UIColor + HexValue.swift */,
 				1F13BA4D24E058D400438F2D /* StackView + Initializer.swift */,
 				1F03B56A24D6D09C0076F846 /* UIImage + GIF.swift */,
 				1F8903BA24E55752002C63A7 /* StringProtocol + Extension.swift */,
@@ -80,6 +85,7 @@
 				1FAAF04024C2443D00C934D1 /* SearchViewController.swift */,
 				1F13BA4B24E0432E00438F2D /* GifTableViewCell.swift */,
 				1F6E022324E5278600C90962 /* TableViewManager.swift */,
+				1F19D3F724E6A4A6002751FB /* TabBar.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -233,6 +239,8 @@
 				1FAAF04124C2443D00C934D1 /* SearchViewController.swift in Sources */,
 				1FAAF03F24C2443D00C934D1 /* AppDelegate.swift in Sources */,
 				1F13BA4C24E0432E00438F2D /* GifTableViewCell.swift in Sources */,
+				1F19D3FA24E6C00E002751FB /* UIColor + HexValue.swift in Sources */,
+				1F19D3F824E6A4A6002751FB /* TabBar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

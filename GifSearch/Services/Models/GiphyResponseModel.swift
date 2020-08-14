@@ -30,7 +30,7 @@ struct DataModel: Decodable {
             let originalHeight = CGFloat(originalHeightInt)
             let aspectRatio = originalWidth / originalHeight
             let newWidth = 150 * aspectRatio
-            return Gif(title: title, imageData: data, width: newWidth)
+            return Gif(title: title, previewImageData: data, width: newWidth, url: images.original.url)
         } catch {
             print("Error in \(#function)\n\(error)")
         }

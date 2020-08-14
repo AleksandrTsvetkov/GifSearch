@@ -14,10 +14,12 @@ struct Gif {
     let imageData: Data
     var savedDate: Date?
     let width: CGFloat
+    let url: String
     
-    init(title: String, imageData: Data, width: CGFloat) {
+    init(title: String, previewImageData: Data, width: CGFloat, url: String) {
         self.title = title
-        self.imageData = imageData
+        self.imageData = previewImageData
         self.width = width
+        self.url = url
     }
 }

@@ -27,6 +27,7 @@ class SearchViewController: UIViewController {
         setupSearchBar()
         setupTableView()
         setupActivityIndicator()
+        setupTabBar()
     }
     
     //MARK: INITIAL SETUP
@@ -47,6 +48,18 @@ class SearchViewController: UIViewController {
             searchBar.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
             searchBar.widthAnchor.constraint(equalTo: view.widthAnchor)
         ])
+        searchBar.barTintColor = UIColor(hex: "F7F8FD")
+    }
+    
+    private func setupTabBar() {
+        let tabBar = TabBar()
+        view.addSubview(tabBar)
+        NSLayoutConstraint.activate([
+            tabBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tabBar.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            tabBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tabBar.heightAnchor.constraint(equalToConstant: 60)
+        ])
     }
     
     private func setupTableView() {
@@ -59,7 +72,7 @@ class SearchViewController: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -60),
             tableView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor)
         ])
