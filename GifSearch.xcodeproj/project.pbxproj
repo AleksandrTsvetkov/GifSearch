@@ -15,11 +15,11 @@
 		1F19D3FA24E6C00E002751FB /* UIColor + HexValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F19D3F924E6C00E002751FB /* UIColor + HexValue.swift */; };
 		1F6E022424E5278600C90962 /* TableViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6E022324E5278600C90962 /* TableViewManager.swift */; };
 		1F6E022724E5292200C90962 /* SearchVCModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6E022624E5292200C90962 /* SearchVCModels.swift */; };
-		1F6E022924E52CBB00C90962 /* SearchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6E022824E52CBB00C90962 /* SearchInteractor.swift */; };
-		1F6E022B24E52CD400C90962 /* SearchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6E022A24E52CD400C90962 /* SearchPresenter.swift */; };
+		1F6E022924E52CBB00C90962 /* Interactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6E022824E52CBB00C90962 /* Interactor.swift */; };
+		1F6E022B24E52CD400C90962 /* Presenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6E022A24E52CD400C90962 /* Presenter.swift */; };
 		1F8903BB24E55752002C63A7 /* StringProtocol + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8903BA24E55752002C63A7 /* StringProtocol + Extension.swift */; };
 		1FAAF03F24C2443D00C934D1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FAAF03E24C2443D00C934D1 /* AppDelegate.swift */; };
-		1FAAF04124C2443D00C934D1 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FAAF04024C2443D00C934D1 /* SearchViewController.swift */; };
+		1FAAF04124C2443D00C934D1 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FAAF04024C2443D00C934D1 /* MainViewController.swift */; };
 		1FAAF04324C2443F00C934D1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1FAAF04224C2443F00C934D1 /* Assets.xcassets */; };
 		1FAAF04624C2443F00C934D1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FAAF04424C2443F00C934D1 /* LaunchScreen.storyboard */; };
 		1FDA953F24D6C0F800ACD5AC /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDA953E24D6C0F800ACD5AC /* NetworkService.swift */; };
@@ -35,12 +35,12 @@
 		1F19D3F924E6C00E002751FB /* UIColor + HexValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor + HexValue.swift"; sourceTree = "<group>"; };
 		1F6E022324E5278600C90962 /* TableViewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewManager.swift; sourceTree = "<group>"; };
 		1F6E022624E5292200C90962 /* SearchVCModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVCModels.swift; sourceTree = "<group>"; };
-		1F6E022824E52CBB00C90962 /* SearchInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchInteractor.swift; sourceTree = "<group>"; };
-		1F6E022A24E52CD400C90962 /* SearchPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPresenter.swift; sourceTree = "<group>"; };
+		1F6E022824E52CBB00C90962 /* Interactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interactor.swift; sourceTree = "<group>"; };
+		1F6E022A24E52CD400C90962 /* Presenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Presenter.swift; sourceTree = "<group>"; };
 		1F8903BA24E55752002C63A7 /* StringProtocol + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StringProtocol + Extension.swift"; sourceTree = "<group>"; };
 		1FAAF03B24C2443D00C934D1 /* GifSearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GifSearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FAAF03E24C2443D00C934D1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		1FAAF04024C2443D00C934D1 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		1FAAF04024C2443D00C934D1 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		1FAAF04224C2443F00C934D1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1FAAF04524C2443F00C934D1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1FAAF04724C2443F00C934D1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -82,7 +82,7 @@
 		1F6E022224E526EA00C90962 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				1FAAF04024C2443D00C934D1 /* SearchViewController.swift */,
+				1FAAF04024C2443D00C934D1 /* MainViewController.swift */,
 				1F13BA4B24E0432E00438F2D /* GifTableViewCell.swift */,
 				1F6E022324E5278600C90962 /* TableViewManager.swift */,
 				1F19D3F724E6A4A6002751FB /* TabBar.swift */,
@@ -120,8 +120,8 @@
 			isa = PBXGroup;
 			children = (
 				1F6E022524E528C700C90962 /* Models */,
-				1F6E022824E52CBB00C90962 /* SearchInteractor.swift */,
-				1F6E022A24E52CD400C90962 /* SearchPresenter.swift */,
+				1F6E022824E52CBB00C90962 /* Interactor.swift */,
+				1F6E022A24E52CD400C90962 /* Presenter.swift */,
 				1F6E022224E526EA00C90962 /* View */,
 				1F3BD40E24D6DA3F0003FA05 /* Extensions */,
 				1F3BD40F24D6DA500003FA05 /* Services */,
@@ -228,15 +228,15 @@
 			files = (
 				1F13BA4E24E058D400438F2D /* StackView + Initializer.swift in Sources */,
 				1F03B56B24D6D09C0076F846 /* UIImage + GIF.swift in Sources */,
-				1F6E022B24E52CD400C90962 /* SearchPresenter.swift in Sources */,
+				1F6E022B24E52CD400C90962 /* Presenter.swift in Sources */,
 				1FFC9CCF24D873B60079B9EC /* GiphyResponseModel.swift in Sources */,
 				1F13BA4A24E02F1900438F2D /* GifModel.swift in Sources */,
 				1F6E022424E5278600C90962 /* TableViewManager.swift in Sources */,
 				1FDA953F24D6C0F800ACD5AC /* NetworkService.swift in Sources */,
 				1F8903BB24E55752002C63A7 /* StringProtocol + Extension.swift in Sources */,
 				1F6E022724E5292200C90962 /* SearchVCModels.swift in Sources */,
-				1F6E022924E52CBB00C90962 /* SearchInteractor.swift in Sources */,
-				1FAAF04124C2443D00C934D1 /* SearchViewController.swift in Sources */,
+				1F6E022924E52CBB00C90962 /* Interactor.swift in Sources */,
+				1FAAF04124C2443D00C934D1 /* MainViewController.swift in Sources */,
 				1FAAF03F24C2443D00C934D1 /* AppDelegate.swift in Sources */,
 				1F13BA4C24E0432E00438F2D /* GifTableViewCell.swift in Sources */,
 				1F19D3FA24E6C00E002751FB /* UIColor + HexValue.swift in Sources */,

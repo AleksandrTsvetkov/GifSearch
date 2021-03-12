@@ -1,5 +1,5 @@
 //
-//  SearchPresenter.swift
+//  Presenter.swift
 //  GifSearch
 //
 //  Created by Александр Цветков on 13.08.2020.
@@ -8,11 +8,11 @@
 
 import UIKit
 
-class SearchPresenter {
+class Presenter {
     
-    private var viewController: SearchViewController
+    private var viewController: MainViewController
     
-    init(for viewController: SearchViewController) {
+    init(for viewController: MainViewController) {
         self.viewController = viewController
     }
     

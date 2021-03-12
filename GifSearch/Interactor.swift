@@ -1,5 +1,5 @@
 //
-//  SearchInteractor.swift
+//  Interactor.swift
 //  GifSearch
 //
 //  Created by Александр Цветков on 13.08.2020.
@@ -8,9 +8,9 @@
 
 import UIKit
 
-class SearchInteractor {
+class Interactor {
     
-    var presenter: SearchPresenter!
+    var presenter: Presenter!
     var networkService: NetworkService!
     
     func makeRequest(ofType type: SearchVCModels.Model.Request.RequestType, completion: @escaping (Result<[Gif], Error>) -> Void) {

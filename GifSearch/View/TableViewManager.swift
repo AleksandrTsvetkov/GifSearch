@@ -9,9 +9,9 @@
 import UIKit
 
 class TableViewManager: NSObject {
-    private var viewController: SearchViewController
+    private var viewController: MainViewController
     
-    init(for viewController: SearchViewController) {
+    init(for viewController: MainViewController) {
         self.viewController = viewController
     }
 }

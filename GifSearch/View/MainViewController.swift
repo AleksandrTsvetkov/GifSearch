@@ -1,5 +1,5 @@
 //
-//  SearchViewController.swift
+//  MainViewController.swift
 //  GifSearch
 //
 //  Created by Александр Цветков on 17.07.2020.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SearchViewController: UIViewController {
+class MainViewController: UIViewController {
     
     //MARK: PROPERTIES
     var gifs: Array<Gif> = []
@@ -17,8 +17,8 @@ class SearchViewController: UIViewController {
     private var timer: Timer?
     private let activityIndicator = UIActivityIndicatorView(style: .large)
     private var tableViewManager: TableViewManager!
-    private var interactor: SearchInteractor!
-    private var presenter: SearchPresenter!
+    private var interactor: Interactor!
+    private var presenter: Presenter!
     
     //MARK: VIEW LIFECYCLE
     override func viewDidLoad() {
@@ -33,8 +33,8 @@ class SearchViewController: UIViewController {
     //MARK: INITIAL SETUP
     private func setupSubModules() {
         if tableViewManager == nil { tableViewManager = TableViewManager(for: self) }
-        if presenter == nil { presenter = SearchPresenter(for: self) }
-        if interactor == nil { interactor = SearchInteractor() }
+        if presenter == nil { presenter = Presenter(for: self) }
+        if interactor == nil { interactor = Interactor() }
         interactor.presenter = presenter
         interactor.networkService = NetworkService()
     }
@@ -95,29 +95,39 @@ class SearchViewController: UIViewController {
 }
 
 //MARK: UISearchBarDelegate
-extension SearchViewController: UISearchBarDelegate {
+extension MainViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         guard searchText != "" else { return }
         timer?.invalidate()
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false, block: { [weak self] _ in
-            self?.activityIndicator.startAnimating()
-            self?.activityIndicator.isHidden = false
-            self?.tableView.isHidden = true
-            self?.interactor.makeRequest(ofType: .search(value: searchText), completion: { result in
-                switch result {
-                case .success(let gifs):
-                    self?.gifs = gifs
-                    self?.tableView.reloadData()
-                    self?.activityIndicator.stopAnimating()
-                    self?.tableView.isHidden = false
-                case .failure(let error):
-                    self?.activityIndicator.stopAnimating()
-                    let ac = UIAlertController(title: "Error!", message: "\(error)", preferredStyle: .alert)
-                    let ok = UIAlertAction(title: "OK", style: .default)
-                    ac.addAction(ok)
-                    self?.present(ac, animated: true)
-                }
-            })
-        })
+             // make request
+            
+        }) // timer
+        
     }// end searchBar(_:textDidChange:)
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let searchText = searchBar.text else { return }
+        searchBar.resignFirstResponder()
+        self.activityIndicator.startAnimating()
+        self.activityIndicator.isHidden = false
+        self.tableView.isHidden = true
+        self.interactor.makeRequest(ofType: .search(value: searchText), completion: { result in
+            
+            switch result {
+            case .success(let gifs):
+                self.gifs = gifs
+                self.tableView.reloadData()
+                self.activityIndicator.stopAnimating()
+                self.tableView.isHidden = false
+            case .failure(let error):
+                self.activityIndicator.stopAnimating()
+                let ac = UIAlertController(title: "Error!", message: "\(error)", preferredStyle: .alert)
+                let ok = UIAlertAction(title: "OK", style: .default)
+                ac.addAction(ok)
+                self.present(ac, animated: true)
+            } // end switch
+            
+        })
+    }
 }
